@@ -7,28 +7,30 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --ink:       #1a1a2e;
-      --paper:     #f5f0e8;
-      --cream:     #ede8dc;
-      --gold:      #c9a84c;
-      --gold-lt:   #e8d5a3;
-      --rust:      #8b3a2f;
-      --mist:      #6b7280;
-      --white:     #ffffff;
-      --green:     #34d399;
-      --green-bg:  #f0fdf4;
-      --green-bd:  #a7f3d0;
-      --green-dk:  #065f46;
-      --red:       #f87171;
-      --red-bg:    #fff5f5;
-      --red-dk:    #b91c1c;
-      --red-bd:    #fecaca;
-      --shadow:    0 4px 24px rgba(26,26,46,0.10);
-      --shadow-lg: 0 12px 48px rgba(26,26,46,0.16);
+      --ink:      #1a1a2e;
+      --paper:    #f5f0e8;
+      --cream:    #ede8dc;
+      --gold:     #c9a84c;
+      --gold-lt:  #e8d5a3;
+      --rust:     #8b3a2f;
+      --mist:     #6b7280;
+      --white:    #ffffff;
+      --green:    #34d399;
+      --green-bg: #f0fdf4;
+      --green-bd: #a7f3d0;
+      --green-dk: #065f46;
+      --red:      #f87171;
+      --red-bg:   #fff5f5;
+      --red-dk:   #b91c1c;
+      --red-bd:   #fecaca;
+      --blue:     #3b82f6;
+      --blue-bg:  #eff6ff;
+      --blue-bd:  #bfdbfe;
+      --blue-dk:  #1e40af;
+      --shadow:   0 4px 24px rgba(26,26,46,0.10);
+      --shadow-lg:0 12px 48px rgba(26,26,46,0.16);
     }
-
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--paper);
@@ -41,65 +43,104 @@
       overflow-x: hidden;
     }
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
+      content: ''; position: fixed; inset: 0;
       background:
         radial-gradient(ellipse 60% 40% at 80% 10%, rgba(201,168,76,0.12) 0%, transparent 60%),
         radial-gradient(ellipse 50% 50% at 10% 90%, rgba(139,58,47,0.08) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
 
-    /* ── Layout ── */
     .page-wrap { position: relative; z-index: 1; width: 100%; max-width: 560px; }
 
+    /* ── Header ── */
     .header { text-align: center; margin-bottom: 32px; animation: fadeDown 0.5s ease both; }
     .badge {
       display: inline-block; background: var(--gold); color: var(--white);
       font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
       padding: 4px 14px; border-radius: 20px; margin-bottom: 12px;
     }
-    .header h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.9rem, 5vw, 2.6rem);
-      color: var(--ink); line-height: 1.15; margin-bottom: 6px;
-    }
+    .header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(1.9rem,5vw,2.6rem); color: var(--ink); line-height: 1.15; margin-bottom: 6px; }
     .header h1 em { font-style: italic; color: var(--gold); }
     .header p { color: var(--mist); font-size: 13.5px; font-weight: 300; }
 
+    /* ── Card ── */
     .card {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 36px 36px 32px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--cream);
+      background: var(--white); border-radius: 20px; padding: 36px 36px 32px;
+      box-shadow: var(--shadow-lg); border: 1px solid var(--cream);
       animation: fadeUp 0.5s 0.1s ease both;
     }
     @media (max-width: 480px) { .card { padding: 24px 18px; } }
 
-    /* ── Clock strip ── */
+    /* ── Clock ── */
     .clock-strip {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--cream); border-radius: 10px;
-      padding: 9px 14px; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 10px; background: var(--cream);
+      border-radius: 10px; padding: 9px 14px; margin-bottom: 28px;
       font-size: 12.5px; color: var(--ink); font-weight: 500;
     }
-    #live-clock {
-      font-family: 'DM Serif Display', serif;
-      font-size: 14px; letter-spacing: 0.4px; color: var(--rust);
+    #live-clock { font-family: 'DM Serif Display', serif; font-size: 14px; letter-spacing: 0.4px; color: var(--rust); }
+
+    /* ── Welcome-back card ── */
+    .welcome-card {
+      display: none;
+      background: var(--blue-bg);
+      border: 1.5px solid var(--blue-bd);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      animation: slideDown 0.35s ease both;
     }
+    .welcome-card.show { display: block; }
+    .welcome-card .wc-head {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .welcome-card .wc-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--blue-bd);
+      transform: scaleX(-1); display: none; flex-shrink: 0;
+    }
+    .welcome-card .wc-avatar.show { display: block; }
+    .welcome-card .wc-title { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--blue-dk); }
+    .welcome-card .wc-sub   { font-size: 11.5px; color: var(--mist); margin-top: 1px; }
+    .wc-details {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px;
+      margin-bottom: 14px;
+    }
+    .wc-row { display: flex; flex-direction: column; gap: 1px; }
+    .wc-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--mist); }
+    .wc-value { font-size: 13px; font-weight: 500; color: var(--ink); }
+    .wc-actions { display: flex; gap: 10px; }
+    .btn-use {
+      flex: 1; padding: 9px 0; background: var(--blue-dk); color: var(--white);
+      border: none; border-radius: 9px; font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-use:hover { opacity: 0.88; }
+    .btn-fresh {
+      flex: 1; padding: 9px 0; background: transparent; color: var(--mist);
+      border: 1.5px solid var(--cream); border-radius: 9px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-fresh:hover { border-color: var(--mist); color: var(--ink); }
+
+    /* ID lookup spinner */
+    .id-wrap { position: relative; }
+    .id-spinner {
+      display: none; position: absolute; right: 12px; top: 50%;
+      transform: translateY(-50%);
+      width: 15px; height: 15px;
+      border: 2px solid var(--cream); border-top-color: var(--gold);
+      border-radius: 50%; animation: spin 0.7s linear infinite;
+    }
+    .id-spinner.show { display: block; }
 
     /* ── Fields ── */
     .field { margin-bottom: 18px; }
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
     @media (max-width: 420px) { .field-row { grid-template-columns: 1fr; } }
 
-    label {
-      display: block; font-size: 10.5px; font-weight: 600;
-      letter-spacing: 1.4px; text-transform: uppercase;
-      color: var(--mist); margin-bottom: 6px;
-    }
+    label { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--mist); margin-bottom: 6px; }
     label .opt { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 11px; color: #aaa; }
     label .req { color: var(--rust); margin-left: 1px; }
 
@@ -108,130 +149,69 @@
       font-family: 'DM Sans', sans-serif; font-size: 14.5px;
       color: var(--ink); background: var(--paper);
       border: 1.5px solid var(--cream); border-radius: 10px;
-      outline: none;
+      outline: none; appearance: none;
       transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-      appearance: none;
     }
     input::placeholder { color: #c0bab0; }
-    input:focus, select:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.14);
-      background: var(--white);
-    }
+    input:focus, select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.14); background: var(--white); }
     input.valid,  select.valid  { border-color: var(--green) !important; background: var(--green-bg); }
     input.invalid,select.invalid{ border-color: var(--red)   !important; background: var(--red-bg); }
+    input.autofilled { border-color: var(--blue) !important; background: var(--blue-bg); }
 
     .field-hint  { font-size: 11px; color: var(--mist); margin-top: 4px; line-height: 1.5; }
     .field-error { font-size: 11px; color: var(--red-dk); margin-top: 4px; font-weight: 500; display: none; }
     .field-error.show { display: block; }
 
-    /* Mobile number row */
     .mobile-row { display: flex; gap: 8px; }
     .code-wrap { position: relative; flex: 0 0 100px; }
-    .code-wrap .plus {
-      position: absolute; left: 12px; top: 50%;
-      transform: translateY(-50%); color: var(--mist);
-      font-size: 14px; pointer-events: none;
-    }
+    .code-wrap .plus { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--mist); font-size: 14px; pointer-events: none; }
     .code-wrap input { padding-left: 24px; }
     .mobile-row .num { flex: 1; }
-    @media (max-width: 420px) {
-      .mobile-row { flex-direction: column; }
-      .code-wrap { flex: none; width: 100%; }
-    }
+    @media (max-width: 420px) { .mobile-row { flex-direction: column; } .code-wrap { flex: none; width: 100%; } }
 
-    /* ID row */
     .id-row { display: flex; gap: 8px; }
     .id-row select { flex: 0 0 160px; font-size: 12.5px; padding: 12px 10px; }
-    .id-row input  { flex: 1; }
-    @media (max-width: 420px) { .id-row { flex-direction: column; } .id-row select { width: 100%; flex: none; } }
+    .id-row .id-wrap { flex: 1; }
 
-    /* Company select */
     .select-wrap { position: relative; }
     .select-wrap.loading::after {
-      content: ''; position: absolute; right: 12px; top: 50%;
-      transform: translateY(-50%); width: 15px; height: 15px;
-      border: 2px solid var(--cream); border-top-color: var(--gold);
-      border-radius: 50%; animation: spin 0.7s linear infinite;
-      pointer-events: none;
+      content: ''; position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      width: 15px; height: 15px; border: 2px solid var(--cream); border-top-color: var(--gold);
+      border-radius: 50%; animation: spin 0.7s linear infinite; pointer-events: none;
     }
-
     .divider { border: none; border-top: 1px solid var(--cream); margin: 22px 0; }
 
-    /* ── Selfie widget ── */
+    /* ── Selfie ── */
     .selfie-box {
       border: 1.5px dashed var(--cream); border-radius: 12px;
-      overflow: hidden; background: var(--paper);
-      transition: border-color 0.2s, border-style 0.2s;
+      overflow: hidden; background: var(--paper); transition: border-color 0.2s;
     }
-    .selfie-box.active            { border-color: var(--gold);  border-style: solid; }
-    .selfie-box.captured          { border-color: var(--green); border-style: solid; }
-    .selfie-box.req-highlight     { border-color: var(--red);   border-style: solid; }
-
-    .selfie-idle {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 8px; padding: 26px 20px; cursor: pointer;
-      transition: background 0.2s;
-    }
+    .selfie-box.active        { border-color: var(--gold);  border-style: solid; }
+    .selfie-box.captured      { border-color: var(--green); border-style: solid; }
+    .selfie-box.req-highlight { border-color: var(--red);   border-style: solid; }
+    .selfie-idle { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 26px 20px; cursor: pointer; transition: background 0.2s; }
     .selfie-idle:hover { background: var(--cream); }
     .selfie-idle .icon { font-size: 32px; line-height: 1; }
     .selfie-idle strong { font-size: 14px; color: var(--ink); }
     .selfie-idle p { font-size: 12px; color: var(--mist); text-align: center; margin: 0; }
-    .req-pill {
-      background: var(--red-bg); color: var(--red-dk);
-      font-size: 9.5px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; padding: 2px 9px;
-      border-radius: 20px; border: 1px solid var(--red-bd);
-    }
-
+    .req-pill { background: var(--red-bg); color: var(--red-dk); font-size: 9.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 9px; border-radius: 20px; border: 1px solid var(--red-bd); }
     .selfie-live { display: none; flex-direction: column; }
-    .selfie-live video {
-      width: 100%; max-height: 280px; object-fit: cover;
-      display: block; transform: scaleX(-1);
-    }
-    .cam-bar {
-      display: flex; gap: 10px; padding: 12px 14px;
-      background: var(--ink); justify-content: center; align-items: center;
-    }
-    .btn-snap {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: var(--white); border: 3px solid var(--gold);
-      font-size: 20px; cursor: pointer; display: flex;
-      align-items: center; justify-content: center;
-      transition: transform 0.15s, background 0.15s; flex-shrink: 0;
-    }
+    .selfie-live video { width: 100%; max-height: 280px; object-fit: cover; display: block; transform: scaleX(-1); }
+    .cam-bar { display: flex; gap: 10px; padding: 12px 14px; background: var(--ink); justify-content: center; align-items: center; }
+    .btn-snap { width: 52px; height: 52px; border-radius: 50%; background: var(--white); border: 3px solid var(--gold); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s, background 0.15s; flex-shrink: 0; }
     .btn-snap:hover { transform: scale(1.08); background: var(--gold-lt); }
-    .btn-ghost {
-      background: transparent; border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.65); padding: 7px 14px; border-radius: 8px;
-      font-family: 'DM Sans', sans-serif; font-size: 12.5px; cursor: pointer;
-      transition: background 0.15s;
-    }
+    .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.65); padding: 7px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12.5px; cursor: pointer; transition: background 0.15s; }
     .btn-ghost:hover { background: rgba(255,255,255,0.1); }
-
     .selfie-done { display: none; flex-direction: column; }
-    .selfie-done img {
-      width: 100%; max-height: 280px; object-fit: cover;
-      display: block; transform: scaleX(-1);
-    }
-    .done-bar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 10px 14px; background: var(--green-bg);
-      border-top: 1px solid var(--green-bd);
-    }
+    .selfie-done img { width: 100%; max-height: 280px; object-fit: cover; display: block; transform: scaleX(-1); }
+    .done-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--green-bg); border-top: 1px solid var(--green-bd); }
     .done-bar span { font-size: 12.5px; color: var(--green-dk); font-weight: 500; }
-    .btn-retake {
-      background: transparent; border: 1px solid var(--green);
-      color: var(--green-dk); padding: 6px 12px; border-radius: 8px;
-      font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer;
-      transition: background 0.15s;
-    }
+    .btn-retake { background: transparent; border: 1px solid var(--green); color: var(--green-dk); padding: 6px 12px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer; transition: background 0.15s; }
     .btn-retake:hover { background: #dcfce7; }
-
     .selfie-note { font-size: 11px; color: var(--red-dk); margin-top: 4px; font-weight: 500; display: none; }
     .selfie-note.show { display: block; }
 
-    /* ── Submit button ── */
+    /* ── Submit ── */
     .btn-submit {
       width: 100%; padding: 14px; margin-top: 4px;
       font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
@@ -240,74 +220,46 @@
       transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
     }
     .btn-submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--shadow); }
-    .btn-submit:active:not(:disabled) { transform: translateY(0); }
     .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
 
-    /* ── Status messages ── */
-    .status {
-      margin-top: 14px; border-radius: 10px; padding: 12px 15px;
-      font-size: 13.5px; font-weight: 500; text-align: center; display: none;
-    }
+    .status { margin-top: 14px; border-radius: 10px; padding: 12px 15px; font-size: 13.5px; font-weight: 500; text-align: center; display: none; }
     .status.error   { display: block; background: #fef2f2; color: #991b1b; border: 1px solid var(--red-bd); }
     .status.loading { display: block; background: var(--cream); color: var(--ink); border: 1px solid var(--gold-lt); }
     .status.success { display: block; background: var(--green-bg); color: var(--green-dk); border: 1px solid var(--green-bd); }
 
-    /* ── Loading overlay ── */
+    /* ── Loading panel ── */
     .loading-panel { display: none; text-align: center; padding: 32px 20px; }
     .loading-panel.show { display: block; }
-    .spinner {
-      width: 44px; height: 44px; border-radius: 50%;
-      border: 4px solid var(--cream); border-top-color: var(--gold);
-      animation: spin 0.8s linear infinite; margin: 0 auto 14px;
-    }
-    .loading-panel h3 {
-      font-family: 'DM Serif Display', serif; font-size: 1.25rem;
-      color: var(--ink); margin-bottom: 4px;
-    }
+    .spinner { width: 44px; height: 44px; border-radius: 50%; border: 4px solid var(--cream); border-top-color: var(--gold); animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
+    .loading-panel h3 { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--ink); margin-bottom: 4px; }
     .loading-panel p { font-size: 12.5px; color: var(--mist); }
     .progress-track { background: var(--cream); border-radius: 99px; height: 4px; margin-top: 16px; overflow: hidden; }
     .progress-fill  { height: 4px; background: var(--gold); border-radius: 99px; width: 0; transition: width 0.35s ease; }
 
-    /* ── Success overlay ── */
+    /* ── Success panel ── */
     .success-panel { display: none; text-align: center; padding: 16px 0 8px; animation: fadeUp 0.4s ease both; }
-    .success-selfie {
-      width: 84px; height: 84px; border-radius: 50%; object-fit: cover;
-      border: 3px solid var(--gold); margin-bottom: 12px; display: none; transform: scaleX(-1);
-    }
+    .success-selfie { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); margin-bottom: 12px; display: none; transform: scaleX(-1); }
     .success-panel .tick { font-size: 52px; margin-bottom: 10px; }
     .success-panel h2 { font-family: 'DM Serif Display', serif; font-size: 1.7rem; color: var(--ink); margin-bottom: 6px; }
-    .success-panel p  { color: var(--mist); font-size: 13.5px; margin-bottom: 20px; }
+    .success-panel > p { color: var(--mist); font-size: 13.5px; margin-bottom: 20px; }
 
-    /* Submission log */
-    .submission-log {
-      background: var(--cream); border-radius: 10px;
-      padding: 14px 16px; margin-bottom: 20px;
-      text-align: left; font-size: 12.5px; line-height: 1.8;
-      color: var(--ink);
-    }
-    .submission-log strong { font-weight: 600; color: var(--mist); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 6px; }
-    .log-row { display: flex; gap: 8px; }
+    .submission-log { background: var(--cream); border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; text-align: left; }
+    .submission-log strong { font-weight: 600; color: var(--mist); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px; }
+    .log-row { display: flex; gap: 8px; margin-bottom: 4px; }
     .log-label { color: var(--mist); flex: 0 0 110px; font-size: 11.5px; }
     .log-value { color: var(--ink); font-weight: 500; font-size: 12px; }
 
-    .btn-another {
-      background: transparent; color: var(--ink); border: 1.5px solid var(--ink);
-      padding: 11px 26px; border-radius: 10px; font-family: 'DM Sans', sans-serif;
-      font-size: 13.5px; font-weight: 600; cursor: pointer; display: inline-block;
-      transition: background 0.2s, color 0.2s;
-    }
+    .btn-another { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); padding: 11px 26px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; display: inline-block; transition: background 0.2s, color 0.2s; }
     .btn-another:hover { background: var(--ink); color: var(--white); }
 
-    .footer {
-      text-align: center; margin-top: 20px; font-size: 11.5px;
-      color: var(--mist); animation: fadeUp 0.5s 0.25s ease both;
-    }
+    .footer { text-align: center; margin-top: 20px; font-size: 11.5px; color: var(--mist); animation: fadeUp 0.5s 0.25s ease both; }
 
     canvas { display: none; }
 
     @keyframes fadeDown { from { opacity:0; transform:translateY(-14px); } to { opacity:1; transform:translateY(0); } }
     @keyframes fadeUp   { from { opacity:0; transform:translateY(14px);  } to { opacity:1; transform:translateY(0); } }
-    @keyframes spin     { to { transform: rotate(360deg); } }
+    @keyframes slideDown{ from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes spin     { to   { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -321,11 +273,30 @@
 
   <div class="card">
     <div class="clock-strip">
-      <span>🕐</span>
-      <span id="live-clock">—</span>
+      <span>🕐</span><span id="live-clock">—</span>
     </div>
 
-    <!-- ── FORM ── -->
+    <!-- Welcome-back card (hidden until ID match found) -->
+    <div class="welcome-card" id="welcome-card">
+      <div class="wc-head">
+        <img class="wc-avatar" id="wc-avatar" src="" alt="" />
+        <div>
+          <div class="wc-title">👋 Welcome back, <span id="wc-name">—</span>!</div>
+          <div class="wc-sub">We found your previous visit record</div>
+        </div>
+      </div>
+      <div class="wc-details">
+        <div class="wc-row"><span class="wc-label">Mobile</span><span class="wc-value" id="wc-mobile">—</span></div>
+        <div class="wc-row"><span class="wc-label">Company</span><span class="wc-value" id="wc-company">—</span></div>
+        <div class="wc-row"><span class="wc-label">Last visit</span><span class="wc-value" id="wc-lastvisit">—</span></div>
+        <div class="wc-row"><span class="wc-label">Visited</span><span class="wc-value" id="wc-visited">—</span></div>
+      </div>
+      <div class="wc-actions">
+        <button class="btn-use"   onclick="applyRecord()">✅ Use my details</button>
+        <button class="btn-fresh" onclick="dismissWelcome()">Start fresh</button>
+      </div>
+    </div>
+
     <form id="reg-form" novalidate>
 
       <!-- Name (optional) -->
@@ -340,7 +311,7 @@
         </div>
       </div>
 
-      <!-- ID (optional) -->
+      <!-- ID — triggers live lookup -->
       <div class="field">
         <label>ID Type &amp; Number <span class="opt">(optional)</span></label>
         <div class="id-row">
@@ -352,7 +323,10 @@
             <option value="passport">🌐 Passport</option>
             <option value="other">Other</option>
           </select>
-          <input type="text" id="id-number" placeholder="e.g. 900101-14-5678" autocomplete="off" />
+          <div class="id-wrap">
+            <input type="text" id="id-number" placeholder="e.g. 900101-14-5678" autocomplete="off" />
+            <div class="id-spinner" id="id-spinner"></div>
+          </div>
         </div>
         <div class="field-hint" id="id-hint"></div>
         <div class="field-error" id="id-error"></div>
@@ -372,7 +346,7 @@
         <div class="field-error" id="mobile-error"></div>
       </div>
 
-      <!-- Company Visiting — REQUIRED, dynamic dropdown -->
+      <!-- Company Visiting — REQUIRED -->
       <div class="field">
         <label for="company-visiting">Company / Person Visiting <span class="req">*</span></label>
         <div class="select-wrap loading" id="co-wrap">
@@ -384,7 +358,7 @@
         <div class="field-error" id="co-error">Please select who you are visiting.</div>
       </div>
 
-      <!-- Visitor's own company (optional) -->
+      <!-- Visitor company (optional) -->
       <div class="field">
         <label for="visitor-company">Your Company <span class="opt">(optional)</span></label>
         <input type="text" id="visitor-company" placeholder="e.g. Acme Sdn Bhd" autocomplete="organization" />
@@ -407,23 +381,20 @@
       <div class="field">
         <label>Visitor Photo <span class="req">*</span></label>
         <div class="selfie-box" id="selfie-box">
-
           <div class="selfie-idle" id="selfie-idle" onclick="startCam()">
             <div class="icon">📷</div>
             <strong>Take a Photo</strong>
             <span class="req-pill">Required</span>
             <p>Tap to open camera</p>
           </div>
-
           <div class="selfie-live" id="selfie-live">
             <video id="selfie-video" autoplay playsinline muted></video>
             <div class="cam-bar">
               <button type="button" class="btn-ghost" onclick="stopCam()">Cancel</button>
-              <button type="button" class="btn-snap"  onclick="snap()" title="Capture">📸</button>
+              <button type="button" class="btn-snap"  onclick="snap()">📸</button>
               <button type="button" class="btn-ghost" onclick="flipCam()">🔄 Flip</button>
             </div>
           </div>
-
           <div class="selfie-done" id="selfie-done">
             <img id="selfie-img" src="" alt="Captured photo" />
             <div class="done-bar">
@@ -431,7 +402,6 @@
               <button type="button" class="btn-retake" onclick="retake()">Retake</button>
             </div>
           </div>
-
         </div>
         <div class="selfie-note" id="selfie-note">⚠️ Photo is required to register.</div>
         <canvas id="selfie-canvas"></canvas>
@@ -442,7 +412,7 @@
       <div class="status" id="status-msg"></div>
     </form>
 
-    <!-- Loading panel -->
+    <!-- Loading -->
     <div class="loading-panel" id="loading-panel">
       <div class="spinner"></div>
       <h3 id="load-title">Saving your details…</h3>
@@ -450,16 +420,13 @@
       <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
 
-    <!-- Success panel -->
+    <!-- Success -->
     <div class="success-panel" id="success-panel">
       <img id="success-selfie" class="success-selfie" src="" alt="" />
       <div class="tick">✅</div>
       <h2>You're Registered!</h2>
       <p>Your visit has been logged.<br>Please wait for your host.</p>
-
-      <!-- Submission summary -->
       <div class="submission-log" id="submission-log"></div>
-
       <button class="btn-another" onclick="resetAll()">Register Another Visitor</button>
     </div>
   </div>
@@ -469,44 +436,42 @@
 
 <script>
 // ═══════════════════════════════════════════════════
-//  CONFIG — paste your Apps Script deployment URL
+//  CONFIG
 // ═══════════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxf_os7g9TuRfks8ZNDg1F15hDJN4sJIuYJ3Tmlgj885pP5bjFxmiTLDCvVUghMTZIK/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfxaOspeWT98nGrbxpuijjKItpSCcvqbaqr3fu0fV4YlxoFN1LBI1gcOow8xyBiSOb/exec';
 // ═══════════════════════════════════════════════════
 
-// ── ID rules ────────────────────────────────────────
 const ID_RULES = {
-  myic:    { label:'MyKad',     pattern:/^\d{6}-?\d{2}-?\d{4}$/,  hint:'Format: YYMMDD-PB-NNNN  e.g. 900101-14-5678', err:'Must be 12 digits: YYMMDD-PB-NNNN', ph:'900101-14-5678',
-             mask: v => { const d=v.replace(/\D/g,'').slice(0,12); if(d.length<=6) return d; if(d.length<=8) return d.slice(0,6)+'-'+d.slice(6); return d.slice(0,6)+'-'+d.slice(6,8)+'-'+d.slice(8); } },
-  mypr:    { label:'MyPR',      pattern:/^\d{6}-?\d{2}-?\d{4}$/,  hint:'Format: YYMMDD-PB-NNNN  e.g. 780215-10-6789', err:'Must be 12 digits: YYMMDD-PB-NNNN', ph:'780215-10-6789',
-             mask: v => { const d=v.replace(/\D/g,'').slice(0,12); if(d.length<=6) return d; if(d.length<=8) return d.slice(0,6)+'-'+d.slice(6); return d.slice(0,6)+'-'+d.slice(6,8)+'-'+d.slice(8); } },
-  nric_sg: { label:'SG NRIC',   pattern:/^[ST]\d{7}[A-Z]$/i,      hint:'S/T + 7 digits + letter  e.g. S1234567D',     err:'Starts S or T, 7 digits, ends letter', ph:'S1234567D', mask:null },
-  fin_sg:  { label:'SG FIN',    pattern:/^[FGM]\d{7}[A-Z]$/i,     hint:'F/G/M + 7 digits + letter  e.g. F1234567N',   err:'Starts F, G or M, 7 digits, ends letter', ph:'F1234567N', mask:null },
-  passport:{ label:'Passport',  pattern:/^[A-Z0-9]{6,12}$/i,       hint:'6–12 alphanumeric chars, no spaces',           err:'6–12 alphanumeric characters', ph:'A12345678', mask:null },
-  other:   { label:'Other ID',  pattern:/^[A-Z0-9\-\/]{4,25}$/i,  hint:'4–25 alphanumeric characters',                 err:'4–25 alphanumeric characters', ph:'ID Number', mask:null },
+  myic:    { label:'MyKad',    pattern:/^\d{6}-?\d{2}-?\d{4}$/, hint:'Format: YYMMDD-PB-NNNN  e.g. 900101-14-5678', err:'Must be 12 digits: YYMMDD-PB-NNNN', ph:'900101-14-5678',
+             mask: v=>{ const d=v.replace(/\D/g,'').slice(0,12); if(d.length<=6)return d; if(d.length<=8)return d.slice(0,6)+'-'+d.slice(6); return d.slice(0,6)+'-'+d.slice(6,8)+'-'+d.slice(8); } },
+  mypr:    { label:'MyPR',     pattern:/^\d{6}-?\d{2}-?\d{4}$/, hint:'Format: YYMMDD-PB-NNNN  e.g. 780215-10-6789', err:'Must be 12 digits: YYMMDD-PB-NNNN', ph:'780215-10-6789',
+             mask: v=>{ const d=v.replace(/\D/g,'').slice(0,12); if(d.length<=6)return d; if(d.length<=8)return d.slice(0,6)+'-'+d.slice(6); return d.slice(0,6)+'-'+d.slice(6,8)+'-'+d.slice(8); } },
+  nric_sg: { label:'SG NRIC',  pattern:/^[ST]\d{7}[A-Z]$/i,    hint:'S/T + 7 digits + letter  e.g. S1234567D',   err:'Starts S or T, 7 digits, ends letter', ph:'S1234567D', mask:null },
+  fin_sg:  { label:'SG FIN',   pattern:/^[FGM]\d{7}[A-Z]$/i,   hint:'F/G/M + 7 digits + letter  e.g. F1234567N', err:'Starts F, G or M, 7 digits, ends letter', ph:'F1234567N', mask:null },
+  passport:{ label:'Passport', pattern:/^[A-Z0-9]{6,12}$/i,    hint:'6–12 alphanumeric chars, no spaces',         err:'6–12 alphanumeric characters', ph:'A12345678', mask:null },
+  other:   { label:'Other ID', pattern:/^[A-Z0-9\-\/]{4,25}$/i,hint:'4–25 alphanumeric characters',              err:'4–25 alphanumeric characters', ph:'ID Number', mask:null },
 };
 
 const COUNTRY_CODES = new Set(['1','7','20','27','30','31','32','33','34','36','39','40','41','43','44','45','46','47','48','49','51','52','53','54','55','56','57','58','60','61','62','63','64','65','66','81','82','84','86','90','91','92','93','94','95','98','212','213','216','218','220','221','222','223','224','225','226','227','228','229','230','231','232','233','234','235','236','237','238','239','240','241','242','243','244','245','246','247','248','249','250','251','252','253','254','255','256','257','258','260','261','262','263','264','265','266','267','268','269','290','291','297','298','299','350','351','352','353','354','355','356','357','358','359','370','371','372','373','374','375','376','377','378','380','381','382','383','385','386','387','389','420','421','423','500','501','502','503','504','505','506','507','508','509','590','591','592','593','594','595','596','597','598','599','670','672','673','674','675','676','677','678','679','680','681','682','683','685','686','687','688','689','690','691','692','850','852','853','855','856','880','886','960','961','962','963','964','965','966','967','968','970','971','972','973','974','975','976','977','992','993','994','995','996','998']);
 
-// ── DOM refs ─────────────────────────────────────────
+// ── DOM ───────────────────────────────────────────────
 const $ = id => document.getElementById(id);
-const idTypeEl  = $('id-type'),  idNumEl   = $('id-number');
-const idHintEl  = $('id-hint'),  idErrEl   = $('id-error');
-const codeEl    = $('mobile-code'), numEl  = $('mobile-num');
-const mobErrEl  = $('mobile-error');
-const coEl      = $('company-visiting'), coErr = $('co-error'), coHint = $('co-hint'), coWrap = $('co-wrap');
+const idTypeEl = $('id-type'), idNumEl = $('id-number');
+const idHintEl = $('id-hint'), idErrEl = $('id-error');
+const codeEl   = $('mobile-code'), numEl = $('mobile-num'), mobErrEl = $('mobile-error');
+const coEl     = $('company-visiting'), coErr = $('co-error'), coHint = $('co-hint'), coWrap = $('co-wrap');
 
 // ── Clock ─────────────────────────────────────────────
 function tick() {
   const n = new Date();
   $('live-clock').textContent =
-    n.toLocaleDateString('en-SG', { weekday:'long', year:'numeric', month:'long', day:'numeric' }) +
+    n.toLocaleDateString('en-SG',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) +
     '  •  ' + n.toLocaleTimeString('en-SG');
   $('yr').textContent = n.getFullYear();
 }
 tick(); setInterval(tick, 1000);
 
-// ── Load companies ────────────────────────────────────
+// ── Companies ─────────────────────────────────────────
 async function loadCompanies() {
   try {
     const res  = await fetch(`${SCRIPT_URL}?action=getCompanies`);
@@ -533,43 +498,129 @@ async function loadCompanies() {
   }
 }
 
-// ── ID ────────────────────────────────────────────────
+// ── Live ID lookup ────────────────────────────────────
+let lookupTimer = null;
+let foundRecord = null;
+
+idNumEl.addEventListener('input', () => {
+  const rule = ID_RULES[idTypeEl.value];
+  idNumEl.value = rule.mask ? rule.mask(idNumEl.value) : idNumEl.value.toUpperCase();
+  validateId();
+
+  // Dismiss any existing welcome card when ID changes
+  dismissWelcome();
+
+  const val = idNumEl.value.replace(/-/g,'');
+  clearTimeout(lookupTimer);
+
+  // Only lookup when enough characters typed
+  if (val.length < 4) return;
+
+  lookupTimer = setTimeout(() => doLookup(idNumEl.value.trim()), 600);
+});
+
+idTypeEl.addEventListener('change', () => {
+  applyIdRule();
+  dismissWelcome();
+});
+
+async function doLookup(idNumber) {
+  if (!idNumber) return;
+  $('id-spinner').classList.add('show');
+  try {
+    const res  = await fetch(`${SCRIPT_URL}?action=lookupVisitor&idNumber=${encodeURIComponent(idNumber)}`);
+    const json = await res.json();
+    $('id-spinner').classList.remove('show');
+
+    if (json.result === 'success' && json.visitor) {
+      foundRecord = json.visitor;
+      showWelcomeCard(json.visitor);
+    }
+  } catch {
+    $('id-spinner').classList.remove('show');
+  }
+}
+
+function showWelcomeCard(v) {
+  $('wc-name').textContent      = [v.firstName, v.lastName].filter(Boolean).join(' ') || 'Visitor';
+  $('wc-mobile').textContent    = v.mobile    || '—';
+  $('wc-company').textContent   = v.visitorCompany || '—';
+  $('wc-lastvisit').textContent = v.date      || '—';
+  $('wc-visited').textContent   = v.companyVisiting || '—';
+
+  // Show previous photo as avatar if available
+  if (v.photoUrl) {
+    $('wc-avatar').src = v.photoUrl;
+    $('wc-avatar').classList.add('show');
+  } else {
+    $('wc-avatar').classList.remove('show');
+  }
+  $('welcome-card').classList.add('show');
+}
+
+function applyRecord() {
+  if (!foundRecord) return;
+  const v = foundRecord;
+
+  // Fill name
+  if (v.firstName) { $('first-name').value = v.firstName; validity($('first-name'), true); $('first-name').classList.add('autofilled'); }
+  if (v.lastName)  { $('last-name').value  = v.lastName;  validity($('last-name'),  true); $('last-name').classList.add('autofilled'); }
+
+  // Fill mobile — split +code number
+  if (v.mobile) {
+    const parts = v.mobile.replace('+','').split(' ');
+    if (parts.length >= 2) {
+      codeEl.value = parts[0];
+      numEl.value  = parts.slice(1).join('');
+      validity(codeEl, true); validity(numEl, true);
+      codeEl.classList.add('autofilled'); numEl.classList.add('autofilled');
+    }
+  }
+
+  // Fill visitor company
+  if (v.visitorCompany) {
+    $('visitor-company').value = v.visitorCompany;
+    $('visitor-company').classList.add('autofilled');
+  }
+
+  dismissWelcome();
+  // Gentle scroll to photo section so visitor knows to retake
+  setTimeout(() => $('selfie-box').scrollIntoView({ behavior:'smooth', block:'center' }), 300);
+}
+
+function dismissWelcome() {
+  $('welcome-card').classList.remove('show');
+  foundRecord = null;
+}
+
+// ── ID validation ─────────────────────────────────────
 function applyIdRule() {
   const r = ID_RULES[idTypeEl.value];
-  idHintEl.textContent = r.hint;
-  idErrEl.textContent  = r.err;
-  idNumEl.placeholder  = r.ph;
-  idNumEl.value = '';
-  validity(idNumEl, null);
-  idErrEl.classList.remove('show');
+  idHintEl.textContent = r.hint; idErrEl.textContent = r.err;
+  idNumEl.placeholder  = r.ph;   idNumEl.value = '';
+  validity(idNumEl, null); idErrEl.classList.remove('show');
 }
-idTypeEl.addEventListener('change', applyIdRule);
-idNumEl.addEventListener('input', () => {
-  const r = ID_RULES[idTypeEl.value];
-  idNumEl.value = r.mask ? r.mask(idNumEl.value) : idNumEl.value.toUpperCase();
-  validateId();
-});
 function validateId() {
   const val = idNumEl.value.trim();
-  if (!val) { validity(idNumEl, null); idErrEl.classList.remove('show'); return true; } // optional — blank is OK
+  if (!val) { validity(idNumEl, null); idErrEl.classList.remove('show'); return true; }
   const ok = ID_RULES[idTypeEl.value].pattern.test(val);
   validity(idNumEl, ok); idErrEl.classList.toggle('show', !ok);
   return ok;
 }
 
 // ── Mobile ────────────────────────────────────────────
-codeEl.addEventListener('input', () => { codeEl.value = codeEl.value.replace(/\D/g,'').slice(0,4); validateMobile(); });
-numEl.addEventListener('input',  () => { numEl.value  = numEl.value.replace(/\D/g,'');              validateMobile(); });
+codeEl.addEventListener('input', () => { codeEl.value = codeEl.value.replace(/\D/g,'').slice(0,4); codeEl.classList.remove('autofilled'); validateMobile(); });
+numEl.addEventListener('input',  () => { numEl.value  = numEl.value.replace(/\D/g,'');              numEl.classList.remove('autofilled');  validateMobile(); });
 function validateMobile() {
   const code = codeEl.value.trim(), num = numEl.value.trim();
   if (!code && !num) { validity(codeEl,null); validity(numEl,null); mobErrEl.classList.remove('show'); return false; }
   const cOk = code.length > 0 && COUNTRY_CODES.has(code);
   const nOk = /^\d{6,13}$/.test(num);
-  validity(codeEl, code.length ? cOk  : null);
-  validity(numEl,  num.length  ? nOk  : null);
-  if (code.length && !cOk) { mobErrEl.textContent = `+${code} is not a recognised country code.`; mobErrEl.classList.add('show'); }
-  else if (num.length && !nOk) { mobErrEl.textContent = 'Number must be 6–13 digits, no leading zero.'; mobErrEl.classList.add('show'); }
-  else if (cOk && nOk) mobErrEl.classList.remove('show');
+  validity(codeEl, code.length ? cOk : null);
+  validity(numEl,  num.length  ? nOk : null);
+  if (code.length && !cOk)      { mobErrEl.textContent = `+${code} is not a recognised country code.`; mobErrEl.classList.add('show'); }
+  else if (num.length && !nOk)  { mobErrEl.textContent = 'Number must be 6–13 digits, no leading zero.'; mobErrEl.classList.add('show'); }
+  else if (cOk && nOk)            mobErrEl.classList.remove('show');
   return cOk && nOk;
 }
 
@@ -586,7 +637,7 @@ let stream = null, facing = 'user', selfieURL = null;
 
 async function startCam() {
   try {
-    stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode: facing, width:{ideal:640}, height:{ideal:480} }, audio:false });
+    stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:facing, width:{ideal:640}, height:{ideal:480} }, audio:false });
     $('selfie-video').srcObject = stream;
     flex('selfie-live'); hide('selfie-idle'); hide('selfie-done');
     $('selfie-box').className = 'selfie-box active';
@@ -595,77 +646,54 @@ async function startCam() {
   }
 }
 function stopCam() {
-  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  if (stream) { stream.getTracks().forEach(t=>t.stop()); stream=null; }
   hide('selfie-live');
   if (selfieURL) { flex('selfie-done'); $('selfie-box').className = 'selfie-box captured'; }
   else           { flex('selfie-idle'); $('selfie-box').className = 'selfie-box'; }
 }
-function flipCam() { facing = facing === 'user' ? 'environment' : 'user'; stopCam(); startCam(); }
+function flipCam() { facing = facing==='user'?'environment':'user'; stopCam(); startCam(); }
 function snap() {
-  const v = $('selfie-video'), c = $('selfie-canvas');
-  c.width = v.videoWidth || 640; c.height = v.videoHeight || 480;
-  const ctx = c.getContext('2d');
-  ctx.translate(c.width, 0); ctx.scale(-1, 1);
-  ctx.drawImage(v, 0, 0, c.width, c.height);
-  const MAX = 640, sc = c.width > MAX ? MAX / c.width : 1;
-  const out = document.createElement('canvas');
-  out.width = Math.round(c.width * sc); out.height = Math.round(c.height * sc);
-  out.getContext('2d').drawImage(c, 0, 0, out.width, out.height);
-  selfieURL = out.toDataURL('image/jpeg', 0.75);
-  $('selfie-img').src = selfieURL;
-  $('success-selfie').src = selfieURL;
+  const v=$('selfie-video'), c=$('selfie-canvas');
+  c.width=v.videoWidth||640; c.height=v.videoHeight||480;
+  const ctx=c.getContext('2d');
+  ctx.translate(c.width,0); ctx.scale(-1,1);
+  ctx.drawImage(v,0,0,c.width,c.height);
+  const MAX=640, sc=c.width>MAX?MAX/c.width:1;
+  const out=document.createElement('canvas');
+  out.width=Math.round(c.width*sc); out.height=Math.round(c.height*sc);
+  out.getContext('2d').drawImage(c,0,0,out.width,out.height);
+  selfieURL=out.toDataURL('image/jpeg',0.75);
+  $('selfie-img').src=selfieURL;
+  $('success-selfie').src=selfieURL;
   stopCam(); flex('selfie-done'); hide('selfie-idle');
-  $('selfie-box').className = 'selfie-box captured';
+  $('selfie-box').className='selfie-box captured';
   $('selfie-note').classList.remove('show');
 }
 function retake() {
-  selfieURL = null; $('selfie-img').src = '';
-  hide('selfie-done'); $('selfie-box').className = 'selfie-box';
+  selfieURL=null; $('selfie-img').src='';
+  hide('selfie-done'); $('selfie-box').className='selfie-box';
   startCam();
 }
 
 // ── Helpers ───────────────────────────────────────────
 function validity(el, ok) {
   el.classList.remove('valid','invalid');
-  if (ok === true)  el.classList.add('valid');
-  if (ok === false) el.classList.add('invalid');
+  if (ok===true)  el.classList.add('valid');
+  if (ok===false) el.classList.add('invalid');
 }
-function setStatus(cls, msg) {
-  const s = $('status-msg');
-  s.className = 'status ' + cls;
-  s.textContent = msg;
-}
-function flex(id) { $(id).style.display = 'flex'; }
-function hide(id) { $(id).style.display = 'none'; }
+function setStatus(cls, msg) { const s=$('status-msg'); s.className='status '+cls; s.textContent=msg; }
+function flex(id) { $(id).style.display='flex'; }
+function hide(id) { $(id).style.display='none'; }
 
 // ── Submit ────────────────────────────────────────────
 $('reg-form').addEventListener('submit', async e => {
   e.preventDefault();
   const btn = $('submit-btn');
-
-  // Validate optional ID only if filled
-  if (!validateId()) { setStatus('error','⚠️ Please fix the ID number format.'); return; }
-
-  // Validate required: mobile
+  if (!validateId())     { setStatus('error','⚠️ Please fix the ID number format.'); return; }
   if (!validateMobile()) { setStatus('error','⚠️ Please enter a valid mobile number with country code.'); codeEl.focus(); return; }
-
-  // Validate required: company visiting
   const visiting = $('company-visiting').value;
-  if (!visiting) {
-    setStatus('error','⚠️ Please select who you are visiting.');
-    validity($('company-visiting'), false);
-    coErr.classList.add('show');
-    return;
-  }
-
-  // Validate required: photo
-  if (!selfieURL) {
-    $('selfie-note').classList.add('show');
-    $('selfie-box').className = 'selfie-box req-highlight';
-    setStatus('error','⚠️ Please take a photo to complete registration.');
-    $('selfie-box').scrollIntoView({ behavior:'smooth', block:'center' });
-    return;
-  }
+  if (!visiting) { setStatus('error','⚠️ Please select who you are visiting.'); validity($('company-visiting'),false); coErr.classList.add('show'); return; }
+  if (!selfieURL) { $('selfie-note').classList.add('show'); $('selfie-box').className='selfie-box req-highlight'; setStatus('error','⚠️ Please take a photo to complete registration.'); $('selfie-box').scrollIntoView({behavior:'smooth',block:'center'}); return; }
 
   const now = new Date();
   const payload = {
@@ -683,88 +711,74 @@ $('reg-form').addEventListener('submit', async e => {
     selfie:          selfieURL,
   };
 
-  // Show loading
   btn.disabled = true;
   $('reg-form').style.display = 'none';
   $('status-msg').style.display = 'none';
-  const panel = $('loading-panel'), fill = $('progress-fill');
-  const loadTitle = $('load-title'), loadSub = $('load-sub');
+  const panel=$('loading-panel'), fill=$('progress-fill');
+  const loadTitle=$('load-title'), loadSub=$('load-sub');
   panel.classList.add('show');
 
-  let pct = 0;
-  const timer = setInterval(() => {
-    pct = pct < 60 ? pct + 5 : pct < 85 ? pct + 0.6 : pct;
-    fill.style.width = pct + '%';
-    if (pct >= 35 && pct < 65) loadTitle.textContent = 'Uploading photo…';
-    if (pct >= 65) { loadTitle.textContent = 'Almost done…'; loadSub.textContent = 'Finishing up'; }
-  }, 200);
+  let pct=0;
+  const timer=setInterval(()=>{
+    pct=pct<60?pct+5:pct<85?pct+0.6:pct;
+    fill.style.width=pct+'%';
+    if(pct>=35&&pct<65) loadTitle.textContent='Uploading photo…';
+    if(pct>=65){ loadTitle.textContent='Almost done…'; loadSub.textContent='Finishing up'; }
+  },200);
 
   try {
-    const res  = await fetch(SCRIPT_URL, {
-      method:  'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body:    JSON.stringify(payload),
-    });
+    const res  = await fetch(SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(payload) });
     const json = await res.json();
     clearInterval(timer);
-
     if (json.result === 'success') {
-      fill.style.width = '100%';
-      await new Promise(r => setTimeout(r, 300));
+      fill.style.width='100%';
+      await new Promise(r=>setTimeout(r,300));
       panel.classList.remove('show');
-
-      // Build submission summary
-      const rows = [
-        ['Name',      [payload.firstName, payload.lastName].filter(Boolean).join(' ') || '—'],
-        ['Mobile',    payload.mobile],
-        ['Visiting',  payload.companyVisiting],
-        ['Purpose',   payload.purpose || '—'],
-        ['Submitted', payload.date + '  ' + payload.time],
+      const rows=[
+        ['Name',     [payload.firstName,payload.lastName].filter(Boolean).join(' ')||'—'],
+        ['Mobile',   payload.mobile],
+        ['Visiting', payload.companyVisiting],
+        ['Purpose',  payload.purpose||'—'],
+        ['Time',     payload.date+'  '+payload.time],
       ];
-      $('submission-log').innerHTML =
-        '<strong>Submission Summary</strong>' +
-        rows.map(([l,v]) => `<div class="log-row"><span class="log-label">${l}</span><span class="log-value">${v}</span></div>`).join('');
-
-      if (selfieURL) $('success-selfie').style.display = 'block';
-      $('success-panel').style.display = 'block';
-    } else {
-      throw new Error(json.error || 'Server returned an error');
-    }
-
-  } catch (err) {
+      $('submission-log').innerHTML='<strong>Submission Summary</strong>'+
+        rows.map(([l,v])=>`<div class="log-row"><span class="log-label">${l}</span><span class="log-value">${v}</span></div>`).join('');
+      if(selfieURL) $('success-selfie').style.display='block';
+      $('success-panel').style.display='block';
+    } else throw new Error(json.error||'Server error');
+  } catch(err) {
     clearInterval(timer);
     panel.classList.remove('show');
-    $('reg-form').style.display = 'block';
-    btn.disabled = false;
-    setStatus('error', `❌ Submission failed: ${err.message}. Please try again or contact reception.`);
+    $('reg-form').style.display='block';
+    btn.disabled=false;
+    setStatus('error',`❌ Submission failed: ${err.message}. Please try again or contact reception.`);
   }
 });
 
 // ── Reset ─────────────────────────────────────────────
 function resetAll() {
   $('reg-form').reset();
-  $('reg-form').style.display = 'block';
-  $('success-panel').style.display = 'none';
+  $('reg-form').style.display='block';
+  $('success-panel').style.display='none';
   $('loading-panel').classList.remove('show');
-  $('status-msg').className = 'status';
-  $('submit-btn').disabled = false;
-  [idNumEl, codeEl, numEl].forEach(el => validity(el, null));
-  const cv = $('company-visiting'); if (cv) validity(cv, null);
+  $('status-msg').className='status';
+  $('submit-btn').disabled=false;
+  [idNumEl,codeEl,numEl,$('first-name'),$('last-name'),$('visitor-company')].forEach(el=>{ validity(el,null); el.classList.remove('autofilled'); });
+  const cv=$('company-visiting'); if(cv) validity(cv,null);
   idErrEl.classList.remove('show'); mobErrEl.classList.remove('show'); coErr.classList.remove('show');
-  selfieURL = null; stopCam();
+  selfieURL=null; stopCam();
   hide('selfie-live'); hide('selfie-done');
-  $('selfie-idle').style.display = 'flex';
-  $('selfie-box').className = 'selfie-box';
+  $('selfie-idle').style.display='flex';
+  $('selfie-box').className='selfie-box';
   $('selfie-note').classList.remove('show');
-  $('selfie-img').src = '';
-  $('success-selfie').style.display = 'none';
-  $('progress-fill').style.width = '0';
-  $('load-title').textContent = 'Saving your details…';
-  $('load-sub').textContent = 'Please wait a moment';
+  $('selfie-img').src=''; $('success-selfie').style.display='none';
+  $('progress-fill').style.width='0';
+  $('load-title').textContent='Saving your details…';
+  $('load-sub').textContent='Please wait a moment';
+  dismissWelcome();
   applyIdRule();
 }
 
-// ── Init ──────────────────────────────────────────────
 applyIdRule();
 loadCompanies();
 </script>
