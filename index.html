@@ -28,6 +28,9 @@
       --blue-bg:  #eff6ff;
       --blue-bd:  #bfdbfe;
       --blue-dk:  #1e40af;
+      --amber-bg: #fffbeb;
+      --amber-bd: #fde68a;
+      --amber-dk: #92400e;
       --shadow:   0 4px 24px rgba(26,26,46,0.10);
       --shadow-lg:0 12px 48px rgba(26,26,46,0.16);
     }
@@ -49,118 +52,89 @@
         radial-gradient(ellipse 50% 50% at 10% 90%, rgba(139,58,47,0.08) 0%, transparent 60%);
       pointer-events: none; z-index: 0;
     }
-
     .page-wrap { position: relative; z-index: 1; width: 100%; max-width: 560px; }
 
     /* ── Header ── */
     .header { text-align: center; margin-bottom: 32px; animation: fadeDown 0.5s ease both; }
-    .badge {
-      display: inline-block; background: var(--gold); color: var(--white);
-      font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-      padding: 4px 14px; border-radius: 20px; margin-bottom: 12px;
-    }
+    .badge { display: inline-block; background: var(--gold); color: var(--white); font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 12px; }
     .header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(1.9rem,5vw,2.6rem); color: var(--ink); line-height: 1.15; margin-bottom: 6px; }
     .header h1 em { font-style: italic; color: var(--gold); }
     .header p { color: var(--mist); font-size: 13.5px; font-weight: 300; }
 
     /* ── Card ── */
-    .card {
-      background: var(--white); border-radius: 20px; padding: 36px 36px 32px;
-      box-shadow: var(--shadow-lg); border: 1px solid var(--cream);
-      animation: fadeUp 0.5s 0.1s ease both;
-    }
+    .card { background: var(--white); border-radius: 20px; padding: 36px 36px 32px; box-shadow: var(--shadow-lg); border: 1px solid var(--cream); animation: fadeUp 0.5s 0.1s ease both; }
     @media (max-width: 480px) { .card { padding: 24px 18px; } }
 
     /* ── Clock ── */
-    .clock-strip {
-      display: flex; align-items: center; gap: 10px; background: var(--cream);
-      border-radius: 10px; padding: 9px 14px; margin-bottom: 28px;
-      font-size: 12.5px; color: var(--ink); font-weight: 500;
-    }
+    .clock-strip { display: flex; align-items: center; gap: 10px; background: var(--cream); border-radius: 10px; padding: 9px 14px; margin-bottom: 24px; font-size: 12.5px; color: var(--ink); font-weight: 500; }
     #live-clock { font-family: 'DM Serif Display', serif; font-size: 14px; letter-spacing: 0.4px; color: var(--rust); }
 
+    /* ── Privacy notice panel ── */
+    .privacy-notice {
+      background: var(--amber-bg); border: 1.5px solid var(--amber-bd);
+      border-radius: 12px; padding: 14px 16px; margin-bottom: 14px;
+    }
+    .privacy-notice .pn-head {
+      display: flex; align-items: center; gap: 7px;
+      font-weight: 600; font-size: 12px; color: var(--amber-dk); margin-bottom: 8px;
+    }
+    .privacy-notice .pn-icon { font-size: 14px; }
+    .privacy-notice ul {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .privacy-notice ul li {
+      display: flex; gap: 8px; font-size: 11.5px; color: #78350f; line-height: 1.5;
+    }
+    .privacy-notice ul li::before { content: '•'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
     /* ── Welcome-back card ── */
-    .welcome-card {
-      display: none;
-      background: var(--blue-bg);
-      border: 1.5px solid var(--blue-bd);
-      border-radius: 14px;
-      padding: 16px 18px;
-      margin-bottom: 20px;
-      animation: slideDown 0.35s ease both;
-    }
+    .welcome-card { display: none; background: var(--blue-bg); border: 1.5px solid var(--blue-bd); border-radius: 14px; padding: 16px 18px; margin-bottom: 20px; animation: slideDown 0.35s ease both; }
     .welcome-card.show { display: block; }
-    .welcome-card .wc-head {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
-    }
-    .welcome-card .wc-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      object-fit: cover; border: 2px solid var(--blue-bd);
-      transform: scaleX(-1); display: none; flex-shrink: 0;
-    }
-    .welcome-card .wc-avatar.show { display: block; }
-    .welcome-card .wc-title { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--blue-dk); }
-    .welcome-card .wc-sub   { font-size: 11.5px; color: var(--mist); margin-top: 1px; }
-    .wc-details {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px;
-      margin-bottom: 14px;
-    }
+    .wc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .wc-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--blue-bd); transform: scaleX(-1); display: none; flex-shrink: 0; }
+    .wc-avatar.show { display: block; }
+    .wc-title { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--blue-dk); }
+    .wc-sub   { font-size: 11.5px; color: var(--mist); margin-top: 1px; }
+    .wc-details { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin-bottom: 14px; }
     .wc-row { display: flex; flex-direction: column; gap: 1px; }
     .wc-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--mist); }
     .wc-value { font-size: 13px; font-weight: 500; color: var(--ink); }
     .wc-actions { display: flex; gap: 10px; }
-    .btn-use {
-      flex: 1; padding: 9px 0; background: var(--blue-dk); color: var(--white);
-      border: none; border-radius: 9px; font-family: 'DM Sans', sans-serif;
-      font-size: 13px; font-weight: 600; cursor: pointer;
-      transition: opacity 0.15s;
-    }
+    .btn-use { flex: 1; padding: 9px 0; background: var(--blue-dk); color: var(--white); border: none; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
     .btn-use:hover { opacity: 0.88; }
-    .btn-fresh {
-      flex: 1; padding: 9px 0; background: transparent; color: var(--mist);
-      border: 1.5px solid var(--cream); border-radius: 9px;
-      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-    }
+    .btn-fresh { flex: 1; padding: 9px 0; background: transparent; color: var(--mist); border: 1.5px solid var(--cream); border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
     .btn-fresh:hover { border-color: var(--mist); color: var(--ink); }
-
-    /* ID lookup spinner */
-    .id-wrap { position: relative; }
-    .id-spinner {
-      display: none; position: absolute; right: 12px; top: 50%;
-      transform: translateY(-50%);
-      width: 15px; height: 15px;
-      border: 2px solid var(--cream); border-top-color: var(--gold);
-      border-radius: 50%; animation: spin 0.7s linear infinite;
-    }
-    .id-spinner.show { display: block; }
 
     /* ── Fields ── */
     .field { margin-bottom: 18px; }
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
     @media (max-width: 420px) { .field-row { grid-template-columns: 1fr; } }
-
     label { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--mist); margin-bottom: 6px; }
     label .opt { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 11px; color: #aaa; }
     label .req { color: var(--rust); margin-left: 1px; }
-
-    input, select {
-      width: 100%; padding: 12px 14px;
-      font-family: 'DM Sans', sans-serif; font-size: 14.5px;
-      color: var(--ink); background: var(--paper);
-      border: 1.5px solid var(--cream); border-radius: 10px;
-      outline: none; appearance: none;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-    }
+    input, select { width: 100%; padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 14.5px; color: var(--ink); background: var(--paper); border: 1.5px solid var(--cream); border-radius: 10px; outline: none; appearance: none; transition: border-color 0.2s, box-shadow 0.2s, background 0.2s; }
     input::placeholder { color: #c0bab0; }
     input:focus, select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.14); background: var(--white); }
-    input.valid,  select.valid  { border-color: var(--green) !important; background: var(--green-bg); }
-    input.invalid,select.invalid{ border-color: var(--red)   !important; background: var(--red-bg); }
+    input.valid,   select.valid   { border-color: var(--green) !important; background: var(--green-bg); }
+    input.invalid, select.invalid { border-color: var(--red)   !important; background: var(--red-bg); }
     input.autofilled { border-color: var(--blue) !important; background: var(--blue-bg); }
-
     .field-hint  { font-size: 11px; color: var(--mist); margin-top: 4px; line-height: 1.5; }
     .field-error { font-size: 11px; color: var(--red-dk); margin-top: 4px; font-weight: 500; display: none; }
     .field-error.show { display: block; }
+
+    /* ID masking notice */
+    .id-mask-note {
+      display: none; margin-top: 5px; padding: 6px 10px;
+      background: var(--amber-bg); border: 1px solid var(--amber-bd);
+      border-radius: 7px; font-size: 11px; color: var(--amber-dk);
+    }
+    .id-mask-note.show { display: block; }
+
+    /* ID spinner */
+    .id-input-wrap { position: relative; }
+    .id-spinner { display: none; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; border: 2px solid var(--cream); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    .id-spinner.show { display: block; }
 
     .mobile-row { display: flex; gap: 8px; }
     .code-wrap { position: relative; flex: 0 0 100px; }
@@ -169,23 +143,13 @@
     .mobile-row .num { flex: 1; }
     @media (max-width: 420px) { .mobile-row { flex-direction: column; } .code-wrap { flex: none; width: 100%; } }
 
-    .id-row { display: flex; gap: 8px; }
-    .id-row select { flex: 0 0 160px; font-size: 12.5px; padding: 12px 10px; }
-    .id-row .id-wrap { flex: 1; }
-
     .select-wrap { position: relative; }
-    .select-wrap.loading::after {
-      content: ''; position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-      width: 15px; height: 15px; border: 2px solid var(--cream); border-top-color: var(--gold);
-      border-radius: 50%; animation: spin 0.7s linear infinite; pointer-events: none;
-    }
+    .select-wrap.loading::after { content: ''; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; border: 2px solid var(--cream); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; pointer-events: none; }
+
     .divider { border: none; border-top: 1px solid var(--cream); margin: 22px 0; }
 
     /* ── Selfie ── */
-    .selfie-box {
-      border: 1.5px dashed var(--cream); border-radius: 12px;
-      overflow: hidden; background: var(--paper); transition: border-color 0.2s;
-    }
+    .selfie-box { border: 1.5px dashed var(--cream); border-radius: 12px; overflow: hidden; background: var(--paper); transition: border-color 0.2s; }
     .selfie-box.active        { border-color: var(--gold);  border-style: solid; }
     .selfie-box.captured      { border-color: var(--green); border-style: solid; }
     .selfie-box.req-highlight { border-color: var(--red);   border-style: solid; }
@@ -211,14 +175,28 @@
     .selfie-note { font-size: 11px; color: var(--red-dk); margin-top: 4px; font-weight: 500; display: none; }
     .selfie-note.show { display: block; }
 
-    /* ── Submit ── */
-    .btn-submit {
-      width: 100%; padding: 14px; margin-top: 4px;
-      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
-      color: var(--white); background: var(--ink);
-      border: none; border-radius: 12px; cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    /* ── PDPA Consent checkbox ── */
+    .consent-block {
+      background: var(--paper); border: 1.5px solid var(--cream);
+      border-radius: 12px; padding: 16px 18px; margin-bottom: 18px;
     }
+    .consent-block.invalid-consent { border-color: var(--red); background: var(--red-bg); }
+    .consent-check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+    .consent-check input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+      accent-color: var(--ink); cursor: pointer;
+      border: 1.5px solid var(--cream); border-radius: 4px;
+      background: var(--white); appearance: auto;
+      padding: 0;
+    }
+    .consent-text { font-size: 12px; color: var(--ink); line-height: 1.6; }
+    .consent-text strong { font-weight: 600; }
+    .consent-text .highlight { color: var(--rust); font-weight: 600; }
+    .consent-error { font-size: 11px; color: var(--red-dk); margin-top: 8px; font-weight: 500; display: none; }
+    .consent-error.show { display: block; }
+
+    /* ── Submit ── */
+    .btn-submit { width: 100%; padding: 14px; margin-top: 4px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--white); background: var(--ink); border: none; border-radius: 12px; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s; }
     .btn-submit:hover:not(:disabled) { transform: translateY(-1px); box-shadow: var(--shadow); }
     .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
 
@@ -243,11 +221,19 @@
     .success-panel h2 { font-family: 'DM Serif Display', serif; font-size: 1.7rem; color: var(--ink); margin-bottom: 6px; }
     .success-panel > p { color: var(--mist); font-size: 13.5px; margin-bottom: 20px; }
 
-    .submission-log { background: var(--cream); border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; text-align: left; }
+    .submission-log { background: var(--cream); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; text-align: left; }
     .submission-log strong { font-weight: 600; color: var(--mist); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px; }
     .log-row { display: flex; gap: 8px; margin-bottom: 4px; }
     .log-label { color: var(--mist); flex: 0 0 110px; font-size: 11.5px; }
     .log-value { color: var(--ink); font-weight: 500; font-size: 12px; }
+
+    /* Retention notice on success */
+    .retention-notice {
+      background: var(--amber-bg); border: 1px solid var(--amber-bd);
+      border-radius: 10px; padding: 12px 16px; margin-bottom: 20px;
+      font-size: 11.5px; color: var(--amber-dk); text-align: left; line-height: 1.6;
+    }
+    .retention-notice strong { font-weight: 600; display: block; margin-bottom: 3px; }
 
     .btn-another { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); padding: 11px 26px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; display: inline-block; transition: background 0.2s, color 0.2s; }
     .btn-another:hover { background: var(--ink); color: var(--white); }
@@ -276,7 +262,7 @@
       <span>🕐</span><span id="live-clock">—</span>
     </div>
 
-    <!-- Welcome-back card (hidden until ID match found) -->
+    <!-- ── Welcome-back card ── -->
     <div class="welcome-card" id="welcome-card">
       <div class="wc-head">
         <img class="wc-avatar" id="wc-avatar" src="" alt="" />
@@ -297,9 +283,9 @@
       </div>
     </div>
 
+    <!-- ── Form ── -->
     <form id="reg-form" novalidate>
 
-      <!-- Name (optional) -->
       <div class="field-row">
         <div class="field">
           <label for="first-name">First Name <span class="opt">(optional)</span></label>
@@ -311,28 +297,20 @@
         </div>
       </div>
 
-      <!-- ID — triggers live lookup -->
+      <!-- ID — live lookup + masking -->
+      <!-- ID — plain input, no validation, live lookup -->
       <div class="field">
-        <label>ID Type &amp; Number <span class="opt">(optional)</span></label>
-        <div class="id-row">
-          <select id="id-type">
-            <option value="myic">🇲🇾 MyKad</option>
-            <option value="mypr">🇲🇾 MyPR</option>
-            <option value="nric_sg">🇸🇬 NRIC</option>
-            <option value="fin_sg">🇸🇬 FIN</option>
-            <option value="passport">🌐 Passport</option>
-            <option value="other">Other</option>
-          </select>
-          <div class="id-wrap">
-            <input type="text" id="id-number" placeholder="e.g. 900101-14-5678" autocomplete="off" />
-            <div class="id-spinner" id="id-spinner"></div>
-          </div>
+        <label for="id-number">ID / Passport Number <span class="opt">(optional)</span></label>
+        <div class="id-input-wrap">
+          <input type="text" id="id-number" placeholder="e.g. 900101-14-5678 or A12345678" autocomplete="off" />
+          <div class="id-spinner" id="id-spinner"></div>
         </div>
-        <div class="field-hint" id="id-hint"></div>
-        <div class="field-error" id="id-error"></div>
+        <div class="id-mask-note show">
+          🔒 Only the last 4 characters of your ID will be stored.
+        </div>
       </div>
 
-      <!-- Mobile — REQUIRED -->
+      <!-- Mobile — REQUIRED, triggers live lookup -->
       <div class="field">
         <label>Mobile Number <span class="req">*</span></label>
         <div class="mobile-row">
@@ -340,7 +318,10 @@
             <span class="plus">+</span>
             <input type="text" id="mobile-code" placeholder="60" maxlength="4" inputmode="numeric" autocomplete="off" />
           </div>
-          <input type="text" class="num" id="mobile-num" placeholder="123456789" inputmode="numeric" autocomplete="off" />
+          <div class="id-input-wrap" style="flex:1;">
+            <input type="text" class="num" id="mobile-num" placeholder="123456789" inputmode="numeric" autocomplete="off" style="width:100%;" />
+            <div class="id-spinner" id="mobile-spinner"></div>
+          </div>
         </div>
         <div class="field-hint">Country code + number, no leading zero &nbsp;(MY = 60 · SG = 65)</div>
         <div class="field-error" id="mobile-error"></div>
@@ -408,6 +389,30 @@
       </div>
 
       <hr class="divider" />
+
+      <!-- ── PDPA Notice ── -->
+      <div class="privacy-notice">
+        <div class="pn-head"><span class="pn-icon">🔒</span> Personal Data Protection Notice</div>
+        <ul>
+          <li>Data collected for <strong>security &amp; visitor management</strong> only.</li>
+          <li>Only the <strong>last 4 characters</strong> of your ID are stored.</li>
+          <li>All records &amp; photos are <strong>deleted after 90 days</strong>.</li>
+          <li>Data is stored via Google's infrastructure and <strong>not shared</strong> with other third parties.</li>
+          <li>To access or delete your data: <a href="mailto:privacy@yourcompany.com" style="color:var(--amber-dk);font-weight:600;">privacy@yourcompany.com</a></li>
+        </ul>
+      </div>
+
+      <!-- ── PDPA Consent ── -->
+      <div class="consent-block" id="consent-block">
+        <label class="consent-check">
+          <input type="checkbox" id="pdpa-consent" />
+          <span class="consent-text">
+            I consent to the collection of my personal data (including photo) for visitor registration purposes, and acknowledge it will be <strong>deleted after 90 days</strong>.
+          </span>
+        </label>
+        <div class="consent-error" id="consent-error">⚠️ Please agree to the data protection notice to proceed.</div>
+      </div>
+
       <button type="submit" class="btn-submit" id="submit-btn">Register Visit →</button>
       <div class="status" id="status-msg"></div>
     </form>
@@ -427,37 +432,35 @@
       <h2>You're Registered!</h2>
       <p>Your visit has been logged.<br>Please wait for your host.</p>
       <div class="submission-log" id="submission-log"></div>
+      <div class="retention-notice">
+        <strong>🔒 Your Data &amp; Privacy</strong>
+        Your visitor record and photo will be <strong>automatically deleted after 90 days</strong>. Your full ID number was not stored — only the last 4 characters were saved. Data is processed via Google's infrastructure under appropriate safeguards. To access, correct or request early deletion of your data, contact <a href="mailto:privacy@yourcompany.com" style="color:var(--amber-dk);">privacy@yourcompany.com</a>.
+      </div>
       <button class="btn-another" onclick="resetAll()">Register Another Visitor</button>
     </div>
   </div>
 
-  <div class="footer">Secured &amp; stored in Google Sheets &nbsp;·&nbsp; <span id="yr"></span></div>
+  <div class="footer">🔒 PDPA Compliant &nbsp;·&nbsp; Data auto-deleted after 90 days &nbsp;·&nbsp; <span id="yr"></span></div>
 </div>
 
 <script>
 // ═══════════════════════════════════════════════════
 //  CONFIG
 // ═══════════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfxaOspeWT98nGrbxpuijjKItpSCcvqbaqr3fu0fV4YlxoFN1LBI1gcOow8xyBiSOb/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyp55G1iYoaNWyfb3n8daHdR56pDZh_h7mMDK5SxuAm-kpi51pKFLYK58bZwIpoCQFN/exec';
 // ═══════════════════════════════════════════════════
-
-const ID_RULES = {
-  myic:    { label:'MyKad',    pattern:/^\d{6}-?\d{2}-?\d{4}$/, hint:'Format: YYMMDD-PB-NNNN  e.g. 900101-14-5678', err:'Must be 12 digits: YYMMDD-PB-NNNN', ph:'900101-14-5678',
-             mask: v=>{ const d=v.replace(/\D/g,'').slice(0,12); if(d.length<=6)return d; if(d.length<=8)return d.slice(0,6)+'-'+d.slice(6); return d.slice(0,6)+'-'+d.slice(6,8)+'-'+d.slice(8); } },
-  mypr:    { label:'MyPR',     pattern:/^\d{6}-?\d{2}-?\d{4}$/, hint:'Format: YYMMDD-PB-NNNN  e.g. 780215-10-6789', err:'Must be 12 digits: YYMMDD-PB-NNNN', ph:'780215-10-6789',
-             mask: v=>{ const d=v.replace(/\D/g,'').slice(0,12); if(d.length<=6)return d; if(d.length<=8)return d.slice(0,6)+'-'+d.slice(6); return d.slice(0,6)+'-'+d.slice(6,8)+'-'+d.slice(8); } },
-  nric_sg: { label:'SG NRIC',  pattern:/^[ST]\d{7}[A-Z]$/i,    hint:'S/T + 7 digits + letter  e.g. S1234567D',   err:'Starts S or T, 7 digits, ends letter', ph:'S1234567D', mask:null },
-  fin_sg:  { label:'SG FIN',   pattern:/^[FGM]\d{7}[A-Z]$/i,   hint:'F/G/M + 7 digits + letter  e.g. F1234567N', err:'Starts F, G or M, 7 digits, ends letter', ph:'F1234567N', mask:null },
-  passport:{ label:'Passport', pattern:/^[A-Z0-9]{6,12}$/i,    hint:'6–12 alphanumeric chars, no spaces',         err:'6–12 alphanumeric characters', ph:'A12345678', mask:null },
-  other:   { label:'Other ID', pattern:/^[A-Z0-9\-\/]{4,25}$/i,hint:'4–25 alphanumeric characters',              err:'4–25 alphanumeric characters', ph:'ID Number', mask:null },
-};
 
 const COUNTRY_CODES = new Set(['1','7','20','27','30','31','32','33','34','36','39','40','41','43','44','45','46','47','48','49','51','52','53','54','55','56','57','58','60','61','62','63','64','65','66','81','82','84','86','90','91','92','93','94','95','98','212','213','216','218','220','221','222','223','224','225','226','227','228','229','230','231','232','233','234','235','236','237','238','239','240','241','242','243','244','245','246','247','248','249','250','251','252','253','254','255','256','257','258','260','261','262','263','264','265','266','267','268','269','290','291','297','298','299','350','351','352','353','354','355','356','357','358','359','370','371','372','373','374','375','376','377','378','380','381','382','383','385','386','387','389','420','421','423','500','501','502','503','504','505','506','507','508','509','590','591','592','593','594','595','596','597','598','599','670','672','673','674','675','676','677','678','679','680','681','682','683','685','686','687','688','689','690','691','692','850','852','853','855','856','880','886','960','961','962','963','964','965','966','967','968','970','971','972','973','974','975','976','977','992','993','994','995','996','998']);
 
-// ── DOM ───────────────────────────────────────────────
+// ── Mask ID — keep only last 4 chars ─────────────────
+function maskId(fullId) {
+  const clean = fullId.replace(/-/g, '');
+  if (clean.length <= 4) return fullId;
+  return '****' + clean.slice(-4);
+}
+
 const $ = id => document.getElementById(id);
-const idTypeEl = $('id-type'), idNumEl = $('id-number');
-const idHintEl = $('id-hint'), idErrEl = $('id-error');
+const idNumEl  = $('id-number');
 const codeEl   = $('mobile-code'), numEl = $('mobile-num'), mobErrEl = $('mobile-error');
 const coEl     = $('company-visiting'), coErr = $('co-error'), coHint = $('co-hint'), coWrap = $('co-wrap');
 
@@ -498,288 +501,237 @@ async function loadCompanies() {
   }
 }
 
-// ── Live ID lookup ────────────────────────────────────
-let lookupTimer = null;
-let foundRecord = null;
+// ── Live lookup — triggers on mobile number ───────────
+let lookupTimer = null, foundRecord = null;
 
-idNumEl.addEventListener('input', () => {
-  const rule = ID_RULES[idTypeEl.value];
-  idNumEl.value = rule.mask ? rule.mask(idNumEl.value) : idNumEl.value.toUpperCase();
-  validateId();
-
-  // Dismiss any existing welcome card when ID changes
+function triggerMobileLookup() {
   dismissWelcome();
-
-  const val = idNumEl.value.replace(/-/g,'');
+  const code = codeEl.value.trim();
+  const num  = numEl.value.trim();
   clearTimeout(lookupTimer);
+  // Need at least a valid-looking code + 6 digits to lookup
+  if (!code || num.length < 6) return;
+  const fullMobile = '+' + code + ' ' + num;
+  lookupTimer = setTimeout(() => doLookup(fullMobile), 600);
+}
 
-  // Only lookup when enough characters typed
-  if (val.length < 4) return;
-
-  lookupTimer = setTimeout(() => doLookup(idNumEl.value.trim()), 600);
-});
-
-idTypeEl.addEventListener('change', () => {
-  applyIdRule();
-  dismissWelcome();
-});
-
-async function doLookup(idNumber) {
-  if (!idNumber) return;
-  $('id-spinner').classList.add('show');
+async function doLookup(mobile) {
+  if (!mobile) return;
+  $('mobile-spinner').classList.add('show');
   try {
-    const res  = await fetch(`${SCRIPT_URL}?action=lookupVisitor&idNumber=${encodeURIComponent(idNumber)}`);
+    const res  = await fetch(`${SCRIPT_URL}?action=lookupVisitor&mobile=${encodeURIComponent(mobile)}`);
     const json = await res.json();
-    $('id-spinner').classList.remove('show');
-
+    $('mobile-spinner').classList.remove('show');
     if (json.result === 'success' && json.visitor) {
       foundRecord = json.visitor;
       showWelcomeCard(json.visitor);
     }
   } catch {
-    $('id-spinner').classList.remove('show');
+    $('mobile-spinner').classList.remove('show');
   }
 }
 
 function showWelcomeCard(v) {
   $('wc-name').textContent      = [v.firstName, v.lastName].filter(Boolean).join(' ') || 'Visitor';
-  $('wc-mobile').textContent    = v.mobile    || '—';
+  $('wc-mobile').textContent    = v.mobile || '—';
   $('wc-company').textContent   = v.visitorCompany || '—';
-  $('wc-lastvisit').textContent = v.date      || '—';
+  $('wc-lastvisit').textContent = v.date || '—';
   $('wc-visited').textContent   = v.companyVisiting || '—';
-
-  // Show previous photo as avatar if available
-  if (v.photoUrl) {
-    $('wc-avatar').src = v.photoUrl;
-    $('wc-avatar').classList.add('show');
-  } else {
-    $('wc-avatar').classList.remove('show');
-  }
+  if (v.photoUrl) { $('wc-avatar').src = v.photoUrl; $('wc-avatar').classList.add('show'); }
+  else $('wc-avatar').classList.remove('show');
   $('welcome-card').classList.add('show');
 }
 
 function applyRecord() {
   if (!foundRecord) return;
   const v = foundRecord;
-
-  // Fill name
-  if (v.firstName) { $('first-name').value = v.firstName; validity($('first-name'), true); $('first-name').classList.add('autofilled'); }
-  if (v.lastName)  { $('last-name').value  = v.lastName;  validity($('last-name'),  true); $('last-name').classList.add('autofilled'); }
-
-  // Fill mobile — split +code number
-  if (v.mobile) {
-    const parts = v.mobile.replace('+','').split(' ');
-    if (parts.length >= 2) {
-      codeEl.value = parts[0];
-      numEl.value  = parts.slice(1).join('');
-      validity(codeEl, true); validity(numEl, true);
-      codeEl.classList.add('autofilled'); numEl.classList.add('autofilled');
-    }
-  }
-
-  // Fill visitor company
-  if (v.visitorCompany) {
-    $('visitor-company').value = v.visitorCompany;
-    $('visitor-company').classList.add('autofilled');
-  }
-
+  if (v.firstName) { $('first-name').value = v.firstName; validity($('first-name'),true); $('first-name').classList.add('autofilled'); }
+  if (v.lastName)  { $('last-name').value  = v.lastName;  validity($('last-name'),true);  $('last-name').classList.add('autofilled'); }
+  if (v.visitorCompany) { $('visitor-company').value = v.visitorCompany; $('visitor-company').classList.add('autofilled'); }
   dismissWelcome();
-  // Gentle scroll to photo section so visitor knows to retake
   setTimeout(() => $('selfie-box').scrollIntoView({ behavior:'smooth', block:'center' }), 300);
 }
 
-function dismissWelcome() {
-  $('welcome-card').classList.remove('show');
-  foundRecord = null;
-}
-
-// ── ID validation ─────────────────────────────────────
-function applyIdRule() {
-  const r = ID_RULES[idTypeEl.value];
-  idHintEl.textContent = r.hint; idErrEl.textContent = r.err;
-  idNumEl.placeholder  = r.ph;   idNumEl.value = '';
-  validity(idNumEl, null); idErrEl.classList.remove('show');
-}
-function validateId() {
-  const val = idNumEl.value.trim();
-  if (!val) { validity(idNumEl, null); idErrEl.classList.remove('show'); return true; }
-  const ok = ID_RULES[idTypeEl.value].pattern.test(val);
-  validity(idNumEl, ok); idErrEl.classList.toggle('show', !ok);
-  return ok;
-}
+function dismissWelcome() { $('welcome-card').classList.remove('show'); foundRecord = null; }
 
 // ── Mobile ────────────────────────────────────────────
-codeEl.addEventListener('input', () => { codeEl.value = codeEl.value.replace(/\D/g,'').slice(0,4); codeEl.classList.remove('autofilled'); validateMobile(); });
-numEl.addEventListener('input',  () => { numEl.value  = numEl.value.replace(/\D/g,'');              numEl.classList.remove('autofilled');  validateMobile(); });
+codeEl.addEventListener('input', () => {
+  codeEl.value = codeEl.value.replace(/\D/g,'').slice(0,4);
+  codeEl.classList.remove('autofilled');
+  validateMobile();
+  triggerMobileLookup();
+});
+numEl.addEventListener('input', () => {
+  numEl.value = numEl.value.replace(/\D/g,'');
+  numEl.classList.remove('autofilled');
+  dismissWelcome();
+  validateMobile();
+  triggerMobileLookup();
+});
 function validateMobile() {
-  const code = codeEl.value.trim(), num = numEl.value.trim();
-  if (!code && !num) { validity(codeEl,null); validity(numEl,null); mobErrEl.classList.remove('show'); return false; }
-  const cOk = code.length > 0 && COUNTRY_CODES.has(code);
-  const nOk = /^\d{6,13}$/.test(num);
-  validity(codeEl, code.length ? cOk : null);
-  validity(numEl,  num.length  ? nOk : null);
-  if (code.length && !cOk)      { mobErrEl.textContent = `+${code} is not a recognised country code.`; mobErrEl.classList.add('show'); }
-  else if (num.length && !nOk)  { mobErrEl.textContent = 'Number must be 6–13 digits, no leading zero.'; mobErrEl.classList.add('show'); }
-  else if (cOk && nOk)            mobErrEl.classList.remove('show');
-  return cOk && nOk;
+  const code=codeEl.value.trim(), num=numEl.value.trim();
+  if (!code&&!num) { validity(codeEl,null); validity(numEl,null); mobErrEl.classList.remove('show'); return false; }
+  const cOk=code.length>0&&COUNTRY_CODES.has(code), nOk=/^\d{6,13}$/.test(num);
+  validity(codeEl, code.length?cOk:null);
+  validity(numEl,  num.length ?nOk:null);
+  if (code.length&&!cOk)     { mobErrEl.textContent=`+${code} is not a recognised country code.`; mobErrEl.classList.add('show'); }
+  else if (num.length&&!nOk) { mobErrEl.textContent='Number must be 6–13 digits, no leading zero.'; mobErrEl.classList.add('show'); }
+  else if (cOk&&nOk)           mobErrEl.classList.remove('show');
+  return cOk&&nOk;
 }
 
-// ── Company select ────────────────────────────────────
+// ── Company ───────────────────────────────────────────
 document.addEventListener('change', e => {
-  if (e.target.id !== 'company-visiting') return;
-  const ok = e.target.value !== '';
-  validity(e.target, ok || null);
-  coErr.classList.toggle('show', !ok);
+  if (e.target.id!=='company-visiting') return;
+  const ok=e.target.value!==''; validity(e.target,ok||null); coErr.classList.toggle('show',!ok);
 });
 
 // ── Camera ────────────────────────────────────────────
-let stream = null, facing = 'user', selfieURL = null;
-
+let stream=null, facing='user', selfieURL=null;
 async function startCam() {
   try {
-    stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:facing, width:{ideal:640}, height:{ideal:480} }, audio:false });
-    $('selfie-video').srcObject = stream;
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:640},height:{ideal:480}},audio:false});
+    $('selfie-video').srcObject=stream;
     flex('selfie-live'); hide('selfie-idle'); hide('selfie-done');
-    $('selfie-box').className = 'selfie-box active';
-  } catch(err) {
-    alert('Camera unavailable: ' + err.message + '\n\nPlease allow camera access and try again.');
-  }
+    $('selfie-box').className='selfie-box active';
+  } catch(err) { alert('Camera unavailable: '+err.message+'\n\nPlease allow camera access and try again.'); }
 }
 function stopCam() {
-  if (stream) { stream.getTracks().forEach(t=>t.stop()); stream=null; }
+  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
   hide('selfie-live');
-  if (selfieURL) { flex('selfie-done'); $('selfie-box').className = 'selfie-box captured'; }
-  else           { flex('selfie-idle'); $('selfie-box').className = 'selfie-box'; }
+  if(selfieURL){flex('selfie-done');$('selfie-box').className='selfie-box captured';}
+  else{flex('selfie-idle');$('selfie-box').className='selfie-box';}
 }
-function flipCam() { facing = facing==='user'?'environment':'user'; stopCam(); startCam(); }
-function snap() {
-  const v=$('selfie-video'), c=$('selfie-canvas');
-  c.width=v.videoWidth||640; c.height=v.videoHeight||480;
-  const ctx=c.getContext('2d');
-  ctx.translate(c.width,0); ctx.scale(-1,1);
-  ctx.drawImage(v,0,0,c.width,c.height);
-  const MAX=640, sc=c.width>MAX?MAX/c.width:1;
-  const out=document.createElement('canvas');
-  out.width=Math.round(c.width*sc); out.height=Math.round(c.height*sc);
+function flipCam(){facing=facing==='user'?'environment':'user';stopCam();startCam();}
+function snap(){
+  const v=$('selfie-video'),c=$('selfie-canvas');
+  c.width=v.videoWidth||640;c.height=v.videoHeight||480;
+  const ctx=c.getContext('2d');ctx.translate(c.width,0);ctx.scale(-1,1);ctx.drawImage(v,0,0,c.width,c.height);
+  const MAX=640,sc=c.width>MAX?MAX/c.width:1;
+  const out=document.createElement('canvas');out.width=Math.round(c.width*sc);out.height=Math.round(c.height*sc);
   out.getContext('2d').drawImage(c,0,0,out.width,out.height);
   selfieURL=out.toDataURL('image/jpeg',0.75);
-  $('selfie-img').src=selfieURL;
-  $('success-selfie').src=selfieURL;
-  stopCam(); flex('selfie-done'); hide('selfie-idle');
-  $('selfie-box').className='selfie-box captured';
-  $('selfie-note').classList.remove('show');
+  $('selfie-img').src=selfieURL;$('success-selfie').src=selfieURL;
+  stopCam();flex('selfie-done');hide('selfie-idle');
+  $('selfie-box').className='selfie-box captured';$('selfie-note').classList.remove('show');
 }
-function retake() {
-  selfieURL=null; $('selfie-img').src='';
-  hide('selfie-done'); $('selfie-box').className='selfie-box';
-  startCam();
-}
+function retake(){selfieURL=null;$('selfie-img').src='';hide('selfie-done');$('selfie-box').className='selfie-box';startCam();}
 
 // ── Helpers ───────────────────────────────────────────
-function validity(el, ok) {
-  el.classList.remove('valid','invalid');
-  if (ok===true)  el.classList.add('valid');
-  if (ok===false) el.classList.add('invalid');
-}
-function setStatus(cls, msg) { const s=$('status-msg'); s.className='status '+cls; s.textContent=msg; }
-function flex(id) { $(id).style.display='flex'; }
-function hide(id) { $(id).style.display='none'; }
+function validity(el,ok){el.classList.remove('valid','invalid');if(ok===true)el.classList.add('valid');if(ok===false)el.classList.add('invalid');}
+function setStatus(cls,msg){const s=$('status-msg');s.className='status '+cls;s.textContent=msg;}
+function flex(id){$(id).style.display='flex';}
+function hide(id){$(id).style.display='none';}
 
 // ── Submit ────────────────────────────────────────────
 $('reg-form').addEventListener('submit', async e => {
   e.preventDefault();
-  const btn = $('submit-btn');
-  if (!validateId())     { setStatus('error','⚠️ Please fix the ID number format.'); return; }
+  const btn=$('submit-btn');
+
   if (!validateMobile()) { setStatus('error','⚠️ Please enter a valid mobile number with country code.'); codeEl.focus(); return; }
-  const visiting = $('company-visiting').value;
+
+  const visiting=$('company-visiting').value;
   if (!visiting) { setStatus('error','⚠️ Please select who you are visiting.'); validity($('company-visiting'),false); coErr.classList.add('show'); return; }
+
   if (!selfieURL) { $('selfie-note').classList.add('show'); $('selfie-box').className='selfie-box req-highlight'; setStatus('error','⚠️ Please take a photo to complete registration.'); $('selfie-box').scrollIntoView({behavior:'smooth',block:'center'}); return; }
 
-  const now = new Date();
-  const payload = {
-    firstName:       $('first-name').value.trim(),
-    lastName:        $('last-name').value.trim(),
-    idType:          ID_RULES[idTypeEl.value].label,
-    idNumber:        idNumEl.value.trim(),
-    mobile:          `+${codeEl.value.trim()} ${numEl.value.trim()}`,
-    companyVisiting: visiting,
-    visitorCompany:  $('visitor-company').value.trim(),
-    purpose:         $('purpose').value,
-    date:            now.toLocaleDateString('en-SG'),
-    time:            now.toLocaleTimeString('en-SG'),
-    timestamp:       now.toISOString(),
-    selfie:          selfieURL,
+  // Consent check
+  if (!$('pdpa-consent').checked) {
+    $('consent-block').classList.add('invalid-consent');
+    $('consent-error').classList.add('show');
+    setStatus('error','⚠️ Please read and agree to the data protection notice.');
+    $('consent-block').scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  $('consent-block').classList.remove('invalid-consent');
+  $('consent-error').classList.remove('show');
+
+  const now=new Date();
+
+  const payload={
+    firstName:        $('first-name').value.trim(),
+    lastName:         $('last-name').value.trim(),
+    idNumberMasked:   idNumEl.value.trim() ? maskId(idNumEl.value.trim()) : '',
+    mobile:           `+${codeEl.value.trim()} ${numEl.value.trim()}`,
+    companyVisiting:  visiting,
+    visitorCompany:   $('visitor-company').value.trim(),
+    purpose:          $('purpose').value,
+    date:             now.toLocaleDateString('en-SG'),
+    time:             now.toLocaleTimeString('en-SG'),
+    timestamp:        now.toISOString(),
+    consentGiven:     true,
+    consentTimestamp: now.toISOString(),
+    selfie:           selfieURL,
   };
 
-  btn.disabled = true;
-  $('reg-form').style.display = 'none';
-  $('status-msg').style.display = 'none';
-  const panel=$('loading-panel'), fill=$('progress-fill');
-  const loadTitle=$('load-title'), loadSub=$('load-sub');
+  btn.disabled=true;
+  $('reg-form').style.display='none';
+  $('status-msg').style.display='none';
+  const panel=$('loading-panel'),fill=$('progress-fill');
+  const loadTitle=$('load-title'),loadSub=$('load-sub');
   panel.classList.add('show');
 
   let pct=0;
   const timer=setInterval(()=>{
-    pct=pct<60?pct+5:pct<85?pct+0.6:pct;
-    fill.style.width=pct+'%';
-    if(pct>=35&&pct<65) loadTitle.textContent='Uploading photo…';
-    if(pct>=65){ loadTitle.textContent='Almost done…'; loadSub.textContent='Finishing up'; }
+    pct=pct<60?pct+5:pct<85?pct+0.6:pct;fill.style.width=pct+'%';
+    if(pct>=35&&pct<65)loadTitle.textContent='Uploading photo…';
+    if(pct>=65){loadTitle.textContent='Almost done…';loadSub.textContent='Finishing up';}
   },200);
 
   try {
-    const res  = await fetch(SCRIPT_URL, { method:'POST', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(payload) });
-    const json = await res.json();
+    const res=await fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)});
+    const json=await res.json();
     clearInterval(timer);
-    if (json.result === 'success') {
+    if(json.result==='success'){
       fill.style.width='100%';
       await new Promise(r=>setTimeout(r,300));
       panel.classList.remove('show');
       const rows=[
         ['Name',     [payload.firstName,payload.lastName].filter(Boolean).join(' ')||'—'],
         ['Mobile',   payload.mobile],
+        ['ID Stored',payload.idNumberMasked||'—'],
         ['Visiting', payload.companyVisiting],
         ['Purpose',  payload.purpose||'—'],
         ['Time',     payload.date+'  '+payload.time],
+        ['Consent',  '✅ Given at '+now.toLocaleTimeString('en-SG')],
       ];
       $('submission-log').innerHTML='<strong>Submission Summary</strong>'+
         rows.map(([l,v])=>`<div class="log-row"><span class="log-label">${l}</span><span class="log-value">${v}</span></div>`).join('');
-      if(selfieURL) $('success-selfie').style.display='block';
+      if(selfieURL)$('success-selfie').style.display='block';
       $('success-panel').style.display='block';
     } else throw new Error(json.error||'Server error');
-  } catch(err) {
-    clearInterval(timer);
-    panel.classList.remove('show');
-    $('reg-form').style.display='block';
-    btn.disabled=false;
+  } catch(err){
+    clearInterval(timer);panel.classList.remove('show');
+    $('reg-form').style.display='block';btn.disabled=false;
     setStatus('error',`❌ Submission failed: ${err.message}. Please try again or contact reception.`);
   }
 });
 
 // ── Reset ─────────────────────────────────────────────
-function resetAll() {
+function resetAll(){
   $('reg-form').reset();
   $('reg-form').style.display='block';
   $('success-panel').style.display='none';
   $('loading-panel').classList.remove('show');
   $('status-msg').className='status';
   $('submit-btn').disabled=false;
-  [idNumEl,codeEl,numEl,$('first-name'),$('last-name'),$('visitor-company')].forEach(el=>{ validity(el,null); el.classList.remove('autofilled'); });
-  const cv=$('company-visiting'); if(cv) validity(cv,null);
-  idErrEl.classList.remove('show'); mobErrEl.classList.remove('show'); coErr.classList.remove('show');
-  selfieURL=null; stopCam();
-  hide('selfie-live'); hide('selfie-done');
+  [$('first-name'),$('last-name'),idNumEl,codeEl,numEl,$('visitor-company')].forEach(el=>{validity(el,null);el.classList.remove('autofilled');});
+  const cv=$('company-visiting');if(cv)validity(cv,null);
+  mobErrEl.classList.remove('show');coErr.classList.remove('show');
+  $('consent-block').classList.remove('invalid-consent');
+  $('consent-error').classList.remove('show');
+  selfieURL=null;stopCam();
+  hide('selfie-live');hide('selfie-done');
   $('selfie-idle').style.display='flex';
   $('selfie-box').className='selfie-box';
   $('selfie-note').classList.remove('show');
-  $('selfie-img').src=''; $('success-selfie').style.display='none';
+  $('selfie-img').src='';$('success-selfie').style.display='none';
   $('progress-fill').style.width='0';
   $('load-title').textContent='Saving your details…';
   $('load-sub').textContent='Please wait a moment';
   dismissWelcome();
-  applyIdRule();
 }
 
-applyIdRule();
 loadCompanies();
 </script>
 </body>
